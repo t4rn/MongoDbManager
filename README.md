@@ -15,5 +15,5 @@ storage:
 
 4. Install service:
 ```
-mongod --config C:\MongoDB\mongod.cfg --install
+C:\MongoDB\bin\mongod --config C:\MongoDB\mongod.cfg --install
 ```
