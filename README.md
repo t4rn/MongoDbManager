@@ -17,3 +17,6 @@ storage:
 ```
 C:\MongoDB\bin\mongod --config C:\MongoDB\mongod.cfg --install
 ```
+
+## MongoDB GUI:
+https://robomongo.org/download
