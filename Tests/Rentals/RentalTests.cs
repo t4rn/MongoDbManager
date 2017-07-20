@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 using NUnit.Framework;
-using RealEstate.Models;
+using RealEstate.Rentals;
 
 namespace Tests.Rentals
 {

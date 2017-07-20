@@ -1,10 +1,17 @@
 ﻿using MongoDB.Driver;
+using RealEstate.Rentals;
 
 namespace RealEstate.DataAccess
 {
     public class RealEstateContext
     {
         public readonly IMongoDatabase Database;
+
+        public IMongoCollection<Rental> Rentals { get
+            {
+                return Database.GetCollection<Rental>("rentals");
+            }
+        }
 
         public RealEstateContext()
         {
