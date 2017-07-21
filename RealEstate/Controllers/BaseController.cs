@@ -1,4 +1,4 @@
-﻿using RealEstate.DataAccess;
+﻿using RealEstate.Rentals;
 using System;
 using System.Web.Mvc;
 
@@ -6,7 +6,12 @@ namespace RealEstate.Controllers
 {
     public abstract class BaseController : Controller
     {
-        protected readonly RealEstateContext _context = new RealEstateContext();
+        protected readonly IRentalService _rentalService;
+
+        public BaseController(IRentalService rentalService)
+        {
+            _rentalService = rentalService;
+        }
 
         protected ActionResult Exception(Exception ex)
         {

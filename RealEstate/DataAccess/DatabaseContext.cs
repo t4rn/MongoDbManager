@@ -3,7 +3,7 @@ using RealEstate.Rentals;
 
 namespace RealEstate.DataAccess
 {
-    public class RealEstateContext
+    public class DatabaseContext
     {
         public readonly IMongoDatabase Database;
 
@@ -13,10 +13,10 @@ namespace RealEstate.DataAccess
             }
         }
 
-        public RealEstateContext()
+        public DatabaseContext(string connectionString, string databaseName)
         {
-            var client = new MongoClient(Properties.Settings.Default.csDB);
-            Database = client.GetDatabase(Properties.Settings.Default.dbName);
+            MongoClient client = new MongoClient(connectionString);
+            Database = client.GetDatabase(databaseName);
         }
     }
 }
