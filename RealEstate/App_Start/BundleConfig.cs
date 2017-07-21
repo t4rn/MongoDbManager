@@ -24,7 +24,8 @@ namespace RealEstate
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      //"~/Content/bootstrap.css",
+                      "~/Content/bootswatch/paper/bootstrap.css",
                       "~/Content/site.css"));
         }
     }

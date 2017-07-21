@@ -1,69 +1,81 @@
-﻿@model IEnumerable<RealEstate.Rentals.Rental>
+﻿@model RealEstate.Rentals.RentalsListVM
 
 @{
-    ViewBag.Title = "Rental Listings";
+    ViewBag.Title = "Houses for rental";
 }
 
-<h2>Rental Listings</h2>
-
-@*@using (Html.BeginForm())
-{
-    <label for="PriceLimit">Price Limit</label>
-    <input type="text" name="PriceLimit" value="@Model.Filters.PriceLimit" />
-    <label for="MinimumRooms">Minimum Rooms</label>
-    <input type="text" name="MinimumRooms" value="@Model.Filters.MinimumRooms" />
-    <input type="submit" value="Search" />
-}*@
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Post Rental", "Post")
+    @Html.ActionLink("Add Rental", "Post", routeValues: null, htmlAttributes: new { @class = "btn btn-success" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Description
-        </th>
-        <th>
-            Number Of Rooms
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            Price
-        </th>
-        <th>Last Adjustment</th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
 
-    @foreach (var rental in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => rental.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => rental.NumberOfRooms)
-            </td>
-            <td>
-                @String.Join(" ", rental.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => rental.Price)
-            </td>
-            <td>
-                @rental.Adjustments.Select(a => a.Describe()).LastOrDefault()
-            </td>
-            <td>
-                @Html.ActionLink("Adjust Price", "AdjustPrice", new { id = rental.Id })
-                @*@rental.Adjustments.Select(a => a.Describe()).LastOrDefault()*@
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = rental.Id })
-            </td>
-        </tr>
-    }
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            <label for="PriceLimit">Maximum Price</label>
+            <input type="text" name="PriceLimit" value="@Model.Filters.PriceLimit" />
+            <label for="MinimumRooms">Minimum Rooms</label>
+            <input type="text" name="MinimumRooms" value="@Model.Filters.MinimumRooms" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+        }
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-responsive">
+            <tr>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Number Of Rooms
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>Last Adjustment</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
 
-</table>
+            @foreach (var rental in Model.Rentals)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => rental.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => rental.NumberOfRooms)
+                    </td>
+                    <td>
+                        @string.Join(" ", rental.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => rental.Price)
+                    </td>
+                    <td>
+                        @rental.Adjustments.Select(a => a.Describe()).LastOrDefault()
+                    </td>
+                    <td>
+                        @Html.ActionLink("Change Price", "AdjustPrice", new { id = rental.Id }, htmlAttributes: new { @class = "btn btn-warning" })
+                        @*@rental.Adjustments.Select(a => a.Describe()).LastOrDefault()*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("Add Image", "AttachImage", new { id = rental.Id }, htmlAttributes: new { @class = "btn btn-warning" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = rental.Id }, htmlAttributes: new { @class = "btn btn-danger"})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

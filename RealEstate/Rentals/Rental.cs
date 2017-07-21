@@ -22,6 +22,8 @@ namespace RealEstate.Rentals
 
         public List<PriceAdjustment> Adjustments { get; set; } = new List<PriceAdjustment>();
 
+        public string ImageId { get; internal set; }
+
         public Rental()
         {
 
@@ -41,6 +43,11 @@ namespace RealEstate.Rentals
             var adjustment = new PriceAdjustment(adjustPrice, Price);
             Adjustments.Add(adjustment);
             Price = adjustment.NewPrice;
+        }
+
+        public bool HasImage()
+        {
+            return !string.IsNullOrWhiteSpace(ImageId);
         }
     }
 }
