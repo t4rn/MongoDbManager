@@ -70,12 +70,12 @@ namespace RealEstate.Rentals
             return RedirectToAction("Index");
         }
 
-        public string PriceDistribution()
+        public ContentResult PriceDistribution()
         {
             IMongoCollection<Rental> rentals = _rentalService.GetAllRentals();
             IEnumerable model = new QueryPriceDistribution().RunAggregation(rentals);
 
-            return model.ToJson();
+            return ContentJson(model.ToJson());
         }
 
         public ActionResult AttachImage(string id)

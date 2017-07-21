@@ -16,22 +16,6 @@ namespace RealEstate.Rentals
             _context = context;
         }
 
-        public DatabaseContext DatabaseContext
-        {
-            get
-            {
-                return _context;
-            }
-        }
-
-        public IMongoDatabase Database
-        {
-            get
-            {
-                return _context.Database;
-            }
-        }
-
         public void AddRental(Rental rental)
         {
             _context.Rentals.InsertOne(rental);

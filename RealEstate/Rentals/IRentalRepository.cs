@@ -13,10 +13,6 @@ namespace RealEstate.Rentals
 
         Rental Get(string id);
 
-        DatabaseContext DatabaseContext { get; }
-
-        IMongoDatabase Database { get; }
-
         Task<BsonDocument> RunCommand(BsonDocument command);
 
         void Delete(string id);

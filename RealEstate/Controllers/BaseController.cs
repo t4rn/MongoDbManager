@@ -22,5 +22,10 @@ namespace RealEstate.Controllers
         {
             return View(viewName: "Error", model: error);
         }
+
+        protected ContentResult ContentJson(string conent)
+        {
+            return Content(conent, "application/json");
+        }
     }
 }

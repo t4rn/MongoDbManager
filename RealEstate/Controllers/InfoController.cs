@@ -10,10 +10,10 @@ namespace RealEstate.Controllers
         {
         }
 
-        public async Task<ActionResult> BuildInfo()
+        public async Task<ContentResult> BuildInfo()
         {
             string buildInfo = await _rentalService.GetBuildInfo();
-            return Content(buildInfo, "application/json");
+            return ContentJson(buildInfo);
         }
     }
 }

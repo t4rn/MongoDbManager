@@ -27,7 +27,7 @@ namespace RealEstate.Rentals
 
         public IMongoQueryable<Rental> FilerRentals(RentalsFilter filters)
         {
-            var rentals = _repo.DatabaseContext.Rentals.AsQueryable();
+            var rentals = _repo.GetAll().AsQueryable();
 
             if (filters.PriceLimit.HasValue)
             {
