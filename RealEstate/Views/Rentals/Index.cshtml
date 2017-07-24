@@ -1,8 +1,12 @@
 ﻿@model RealEstate.Rentals.RentalsListVM
+@using GridMvc.Html
 
 @{
     ViewBag.Title = "Houses for rental";
 }
+
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
 
 <h2>@ViewBag.Title</h2>
 
@@ -25,54 +29,19 @@
 <br />
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-responsive">
-            <tr>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Number Of Rooms
-                </th>
-                <th>
-                    Address
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>Last Adjustment</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
+        @Html.Grid(Model.Rentals).Columns(columns =>
+           {
+               columns.Add(r => r.Description).Sortable(true);
+               columns.Add(r => r.NumberOfRooms).Titled("Rooms").SetWidth(30).Sortable(true);
+               columns.Add(r => r.Address).RenderValueAs(e => string.Join(" ", e.Address));
+               columns.Add(r => r.Price).Titled("Price").Format("{0:#,###0.00} zł").Sortable(true);
+               columns.Add(r => r.Adjustments).RenderValueAs(a => a.Adjustments.Select(x => x.Describe()).LastOrDefault()).Titled("Last Adjustment");
+               columns.Add().Encoded(false).Sanitized(false).SetWidth(30)
+               .RenderValueAs(r => @Html.ActionLink("Details", "Details", new { id = r.Id }, htmlAttributes: new { @class = "btn btn-warning" }));
+               columns.Add().Encoded(false).Sanitized(false).SetWidth(30)
+               .RenderValueAs(r => @Html.ActionLink("Delete", "Delete", new { id = r.Id }, htmlAttributes: new { @class = "btn btn-danger" }));
 
-            @foreach (var rental in Model.Rentals)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => rental.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => rental.NumberOfRooms)
-                    </td>
-                    <td>
-                        @string.Join(" ", rental.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => rental.Price)
-                    </td>
-                    <td>
-                        @rental.Adjustments.Select(a => a.Describe()).LastOrDefault()
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", new { id = rental.Id }, htmlAttributes: new { @class = "btn btn-warning" })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", new { id = rental.Id }, htmlAttributes: new { @class = "btn btn-danger"})
-                    </td>
-                </tr>
-            }
+           }).WithPaging(10)
 
-        </table>
     </div>
 </div>

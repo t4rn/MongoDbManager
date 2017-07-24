@@ -53,7 +53,7 @@ namespace RealEstate.Rentals
 
             _rentalService.AddRental(rental);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult AdjustPrice(string id)
@@ -69,13 +69,20 @@ namespace RealEstate.Rentals
             rental.AdjustPrice(adjustPrice);
             ReplaceOneResult result = _rentalService.UpdateRental(rental);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Delete(string id)
         {
+            Rental rental = _rentalService.GetRental(id);
+            return View(rental);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string id, RentalVM model)
+        {
             _rentalService.DeleteRental(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public ContentResult PriceDistribution()
@@ -104,7 +111,7 @@ namespace RealEstate.Rentals
 
             _rentalService.StoreImage(id, file, rental);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult GetImage(string imageId)
