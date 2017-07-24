@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,11 +19,11 @@ namespace RealEstate.Rentals
         {
         }
 
-        public ActionResult Index(RentalsFilter filters)
+        public async Task<ActionResult> Index(RentalsFilter filters)
         {
-            List<Rental> rentals = _rentalService.FilerRentals(filters)
+            List<Rental> rentals = await _rentalService.FilerRentals(filters)
                 .OrderBy(r => r.Price)
-                .ToList();
+                .ToListAsync();
 
             RentalsListVM model = new RentalsListVM()
             {
@@ -31,6 +32,13 @@ namespace RealEstate.Rentals
             };
 
             return View(model);
+        }
+
+        public ActionResult Details(string id)
+        {
+            Rental rental = _rentalService.GetRental(id);
+
+            return View(rental);
         }
 
         public ActionResult Create()

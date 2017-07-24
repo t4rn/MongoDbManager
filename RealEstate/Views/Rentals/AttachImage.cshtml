@@ -45,5 +45,5 @@
     <img src="@Url.Action("GetImage", new {imageId = @Model.ImageId})" />
 }
 <div>
-    @Html.ActionLink("Back to Rentals", "Index")
+    @Html.ActionLink("Back to Rental", "Details", routeValues: new { id = Model.Id })
 </div>

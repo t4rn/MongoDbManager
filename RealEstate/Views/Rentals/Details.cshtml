@@ -1,0 +1,60 @@
+﻿@model RealEstate.Rentals.Rental
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rental</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfRooms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfRooms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageId)
+        </dd>
+
+        <dt>
+            Last adjustment
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.Adjustments.Select(a => a.Describe()).LastOrDefault())*@
+            @Model.Adjustments.Select(a => a.Describe()).LastOrDefault()
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+    @Html.ActionLink("Change Price", "AdjustPrice", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-warning" })
+    @Html.ActionLink("Add Image", "AttachImage", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-warning" })
+</p>
